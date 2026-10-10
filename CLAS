@@ -1,0 +1,16 @@
+
+const { spawn } = require("child_process");
+
+function startBot() {
+  const bot = spawn("node", ["index.js"], {
+    stdio: "inherit",
+    env: process.env
+  });
+
+  bot.on("exit", (code) => {
+    console.log(`Bot kapandı (${code}). 5 saniye sonra yeniden başlatılıyor...`);
+    setTimeout(startBot, 5000);
+  });
+}
+
+startBot();
